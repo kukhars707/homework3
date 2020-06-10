@@ -5,30 +5,38 @@ import (
 )
 
 func main() {
-	var result []int
 	values := [][]int{
 		{1, 2, 3},
 		{4, 5, 6},
 		{7, 8, 9},
 	}
+	var result []int
+	var step int
 
-	result = append(result, values[0]...)
-
-	for _, v := range values[1:] {
-		result = append(result, v[len(v)-1])
+	for i := 0; i < len(values); i++ {
+		result = append(result, values[0][i])
+		step++
 	}
 
-	last := reverseInts(values[len(values)-1][:len(values)-1])
-
-	result = append(result, last...)
-	result = append(result, values[1][0:len(values)-1]...)
-
-	fmt.Println(result)
-}
-
-func reverseInts(input []int) []int {
-	if len(input) == 0 {
-		return input
+	for i := 1; i < len(values); i++ {
+		result = append(result, values[i][len(values)-1])
+		step++
 	}
-	return append(reverseInts(input[1:]), input[0])
+
+	for i := len(values) - 2; i >= 0; i-- {
+		result = append(result, values[len(values)-1][i])
+		step++
+	}
+
+	for i := len(values) - 2; i > 0; i-- {
+		result = append(result, values[i][0])
+		step++
+	}
+
+	for i := 1; i <= len(values)*len(values); i++ {
+		fmt.Println(i)
+	}
+
+	fmt.Println("result", result)
+	fmt.Println("step", step)
 }
